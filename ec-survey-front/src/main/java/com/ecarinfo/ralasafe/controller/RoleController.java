@@ -40,7 +40,7 @@ public class RoleController extends RalBaseController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) {
-		ECPage<RalRole> ECPage = this.ralRoleService.queryPage(EcUtil.getCurrentUser().getOrgId());
+		ECPage<RalRole> ECPage = this.ralRoleService.queryPage(EcUtil.getCurrentUser().getName(),null);
 		model.addAttribute("ECPage", ECPage);
 		return "ralasafe/role/list";
 	}

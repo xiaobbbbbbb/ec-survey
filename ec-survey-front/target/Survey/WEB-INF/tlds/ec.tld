@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>车信自定义EL library</description>
+	<display-name>EC functions</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>ec</short-name>
+	<uri>http://www.ecarinfo.com/jsp/jstl/functions</uri>
+	<function>
+		<description>字符转码</description>
+		<name>decode</name>
+		<function-class>com.ecarinfo.utils.EcELUtil</function-class>
+		<function-signature>java.lang.String decode(java.lang.String)</function-signature>
+	</function>
+</taglib>

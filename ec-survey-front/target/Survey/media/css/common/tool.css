@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/*按钮的样式*/
+body {
+	margin: auto;
+	padding: 0px;
+}
+
+.toolBtn ul li {
+	float: left;
+	margin-left: 10px;
+}
+
+.toolBtn a {
+	padding: 2px 6px;
+}
+
+.toolBtn a:hover {
+	border: 1px solid #ccc;
+	padding: 1px 5px;
+	text-decoration: none;
+	background-color: white;
+}
+
+.toolPage {
+	
+}

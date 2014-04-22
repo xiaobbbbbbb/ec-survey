@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+body {
+	background-color: white;
+	border-top: 1px solid #cccccc;
+	overflow: hidden;
+}
+
+.default_head {
+	font: bold 30px '方正姚体';
+	height: 60px;
+	padding-left: 120px;
+	line-height: 60px;
+	color: #C06;
+}
+
+.ul_list {
+	padding-left: 250px;
+	line-height: 20px;
+	color: #999999;
+}
+
+#default {
+	background: url("../../../media/images/common/default.gif") no-repeat
+		scroll 0 0 transparent;
+}

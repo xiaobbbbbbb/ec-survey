@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+body {
+	background-color: white;
+}
+
+.titleTip {
+	height: 20px;
+}
+
+img {
+	cursor: pointer;
+}
+
+#artDialog_form_bg {
+	margin: auto;
+	padding: 0px;
+}
+
+#select {
+	padding: 10px;
+}
+
+.selectOption {
+	border-top: 1px solid #707070;
+	border-left: 1px solid #707070;
+	border-right: 1px solid #CECECE;
+	border-bottom: 1px solid #CECECE;
+	height: 290px;
+	overflow: auto;
+}
+
+.selectOption ul li {
+	text-shadow: none;
+	padding: 2px;
+	cursor: pointer;
+}
+
+.checkedOption {
+	background-color: #0567c8;
+	color: white;
+}
+
+.arrowBtn img {
+	padding: 2px;
+	border: 1px solid #fff;
+}
+
+.arrowBtn img:hover {
+	background-color: #c7dfea;
+	border: 1px solid #656565;
+}

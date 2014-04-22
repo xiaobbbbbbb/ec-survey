@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+/*添加和修改页面专用样式*/
+body {
+	background: white;
+}
+
+#titleTip {
+	text-align: right;
+	height: 20px;
+	padding-right: 10px;
+}
+
+#role {
+	margin-top: 5px;
+	width: 800px;
+}
+
+#role_input div {
+	margin-bottom: 10px;
+}
+
+#roleTree {
+	border-color: #707070 #CECECE #CECECE #707070;
+	border-style: solid;
+	border-width: 1px;
+	height: 300px;
+	background-color: white;
+	text-align: left;
+	overflow: auto;
+}
+
+#treeTit {
+	height: 20px;
+	line-height: 20px;
+	background: url("../../../style/images/common/root.png") no-repeat
+		scroll 3px 2px transparent;
+	padding-left: 20px;
+}
+
+.ztree {
+	padding: 0px;
+	padding-left: 3px;
+}
+
+.selectAlert {
+	color: blue;
+	padding-left: 2px;
+	cursor: pointer;
+}
+
+.selectAlert span {
+	padding: 0px 2px;
+}
+
+.selectAlert span:hover {
+	text-decoration: underline;
+}
+
+.table_tit {
+	color: blue;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+#contentImg img {
+	border: 1px solid #ccc;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 -1px 0
+		rgba(0, 0, 0, 0.09);
+	letter-spacing: 2px;
+	line-height: 1;
+	text-shadow: 0 1px 1px #FFFFFF;
+	padding: 1px;
+	transition: box-shadow 0.2s linear 0s;
+	cursor: pointer;
+}
+
+#contentImg img:hover {
+	border: 1px solid red;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 -1px 0
+		rgba(0, 0, 0, 0.09);
+	letter-spacing: 2px;
+	line-height: 1;
+	text-shadow: 0 1px 1px #FFFFFF;
+	padding: 1px;
+	transition: box-shadow 0.2s linear 0s;
+	cursor: pointer;
+}

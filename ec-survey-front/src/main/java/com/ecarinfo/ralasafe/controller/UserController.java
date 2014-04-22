@@ -54,7 +54,7 @@ public class UserController extends RalBaseController {
 			if (!currentUserLoginName.equals("system")) {
 				orgId = currentUser.getOrgId();
 			}
-			ECPage<RalUser> ECPage = ralUserService.queryPage(startTime, endTime, name, loginName, orgId, disabled);
+			ECPage<RalUser> ECPage = ralUserService.queryPage(startTime, endTime, name, loginName, currentUserLoginName, orgId, disabled);
 			model.addAttribute("ECPage", ECPage);
 			return "ralasafe/user/list";
 		} catch (Exception e) {

@@ -1,0 +1,45 @@
+.basedata {
+	margin: 2px 0px 0px 5px;
+	height: 18px;
+	line-height: 18px;
+	padding-left: 23px;
+	background: url("../../../style/images/common/data_root.png") no-repeat
+		scroll 2px 0 transparent;
+}
+
+li.t_img {
+	background-attachment: scroll;
+	background-color: transparent;
+	background-image: url("../../../style/images/common/T.png");
+	background-repeat: no-repeat;
+	padding-left: 24px;
+	background-position: 5px;
+	height: 19px;
+	line-height: 19px;
+}
+
+li.l_img {
+	background-attachment: scroll;
+	background-color: transparent;
+	background-image: url("../../../style/images/common/L.png");
+	background-repeat: no-repeat;
+	padding-left: 24px;
+	background-position: 5px;
+	height: 19px;
+	line-height: 19px;
+}
+
+.t_img a, .l_img a {
+	background-attachment: scroll;
+	background-image: url("../../../style/images/common/data_ch.png");
+	background-position: 2px 0px; 
+	background-repeat : no-repeat;
+	padding-left: 20px;
+	padding-right: 5px;
+	margin-left: 3px;
+}
+
+.t_img a:hover, .l_img a:hover {
+	color: red;
+	text-decoration: none;
+}

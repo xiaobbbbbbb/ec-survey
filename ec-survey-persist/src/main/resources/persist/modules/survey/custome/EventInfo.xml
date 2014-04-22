@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.EventInfoDao">
+
+    <!-- 案件查询 -->
+	<select id="findEventInfoByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		einfo.*, 
+		area.`name` AS area_info_name,
+		us.`name` AS op_user_name,
+		su.`name` AS survey_user_name
+	FROM
+		event_info AS einfo
+	LEFT JOIN area_info AS area ON einfo.area_id = area.id
+	LEFT JOIN ral_user AS us ON einfo.op_uid = us.user_id
+	LEFT JOIN survey_user_info AS su ON einfo.survey_uid = su.id
+	
+	WHERE 
+	
+	${whereCond}
+        ]]>
+	</select>
+	
+	<!-- 案件查询记录数 -->
+	<select id="findEventInfoCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		event_info AS einfo
+	LEFT JOIN area_info AS area ON einfo.area_id = area.id
+	LEFT JOIN ral_user AS us ON einfo.op_uid = us.user_id
+	LEFT JOIN survey_user_info AS su ON einfo.survey_uid = su.id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+	<!-- 案件未调度统计 -->
+	<select id="findEventInfoNoScheduledTotalByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(`status`)AS count,
+		`status`
+	FROM
+	    event_info AS einfo
+	    
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+	<!-- 案件已调度统计 -->
+	<select id="findEventInfoScheduledTotalByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+	    area.`name` AS area_name,
+	    car_no,
+		COUNT(`status`)AS count,
+		`status`
+	FROM
+	    event_info AS einfo
+	    LEFT JOIN area_info AS area ON einfo.area_id = area.id
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+	<!-- 报案统计 -->
+	<select id="findEventInfoTotalReportByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		DATE_FORMAT(einfo.create_time, '%Y-%m')AS months,
+		COUNT(`status`)AS count,
+		einfo.area_id AS area_id,
+		einfo.car_no AS car_no,
+		area.`name` AS `name`
+	FROM
+		event_info AS einfo
+	LEFT JOIN area_info area ON einfo.area_id = area.id
+	
+	WHERE 
+	
+	${whereCond}
+
+    GROUP BY
+	   einfo.area_id,einfo.car_no,months
+	   
+        ]]>
+	</select>
+	<!-- 查勘次数日报告统计 -->
+	<select id="findSurveyNumCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="int">  
+		 <![CDATA[
+			SELECT
+				count(*)
+			FROM
+				event_info AS einfo
+			WHERE
+				${whereCond}
+			]]>
+	</select>
+</mapper>  

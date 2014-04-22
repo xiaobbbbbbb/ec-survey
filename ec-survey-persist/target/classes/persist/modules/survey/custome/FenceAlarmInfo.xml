@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.FenceAlarmInfoDao">  
+    
+     <!-- 电子告警报告 -->
+	<select id="findFenceAlarmInfoReportByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		alarm.*,
+		car.car_no carNo,
+		device.code code
+	FROM
+		fence_alarm_info AS alarm
+	LEFT JOIN car_info AS car ON car.id = alarm.car_id
+	LEFT JOIN device_info AS device ON device.id= alarm.device_id
+    
+	WHERE 
+  
+	${whereCond}
+	
+        ]]>
+	</select>
+
+	<!-- 电子告警报告记录数 -->
+	<select id="findFenceAlarmInfoReportCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		fence_alarm_info AS alarm
+	LEFT JOIN car_info AS car ON car.id = alarm.car_id
+	LEFT JOIN device_info AS device ON device.id= alarm.device_id
+    
+	WHERE 
+  
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+</mapper>  

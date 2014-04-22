@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.AreaGridInfoDao">  
+    
+    <resultMap type="AreaGridInfo" id="AreaGridInfoResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="updateTime" column="update_time"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,update_time FROM area_grid_info WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,update_time FROM area_grid_info WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,update_time FROM area_grid_info WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,update_time FROM area_grid_info WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+		    SELECT id,create_time,update_time FROM area_grid_info WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,update_time FROM area_grid_info        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="AreaGridInfo" resultMap="AreaGridInfoResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,create_time,update_time FROM area_grid_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM area_grid_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="AreaGridInfo">
+    	<![CDATA[ 
+    		INSERT INTO area_grid_info(create_time,update_time) VALUES (#{createTime},#{updateTime})    		
+        ]]> 
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE area_grid_info SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="AreaGridInfo">
+		<![CDATA[ 
+			UPDATE area_grid_info SET create_time = #{createTime},update_time = #{updateTime} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="AreaGridInfo">
+		<![CDATA[ 
+    		DELETE FROM area_grid_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Integer">
+		<![CDATA[ 
+    		DELETE FROM area_grid_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM area_grid_info WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarInfoDao">  
+    
+    <select id="findCarInfoByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		car.*, area.`name` AS area_name
+	FROM
+		car_info AS car
+	LEFT JOIN area_info AS area ON car.area_id = area.id
+	
+	WHERE 
+	
+	${whereCond}
+        ]]>
+	</select>
+	
+	<select id="findCarInfoCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		car_info AS car
+	LEFT JOIN area_info AS area ON car.area_id = area.id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+	<!-- 车辆运行报告 -->
+	<select id="findCarInfoReportByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+	         
+	SELECT
+		car.car_no,
+		count(carreport.id)AS survey_sum
+	FROM
+		car_info AS car
+	LEFT JOIN car_report AS carreport ON carreport.car_id=car.id
+	
+	WHERE 
+	
+	${whereCond}
+        ]]>
+	</select>
+	
+	<!-- 车辆运行报告记录数 -->
+	<select id="findCarInfoReportCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		car_info AS car
+	LEFT JOIN car_report AS carreport ON carreport.car_id=car.id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+	
+	<select id="findValidCarInfoByArea"  resultType="CarInfo" resultMap="CarInfoResultMap">  
+        <![CDATA[ 
+        	SELECT
+				c.*
+			FROM
+				car_info c
+			WHERE
+				c.area_id IN(${areaIds})
+			AND EXISTS(
+				SELECT
+					d.id
+				FROM
+					device_info d
+				WHERE
+					d.id = c.device_id
+			)
+        	
+        ]]>   
+    </select>
+   
+   <!-- 
+   SELECT
+				c.*
+			FROM
+				car_info c
+			WHERE
+				c.area_id IN(${areaIds})
+			AND EXISTS(
+				SELECT
+					d.id
+				FROM
+					device_info d
+				WHERE
+					d.id = c.device_id
+					AND d.online = 1
+			) -->
+    <select id="findValidAndOnlineCarInfoByArea"  resultType="CarInfo" resultMap="CarInfoResultMap">  
+        <![CDATA[ 
+        	SELECT
+				c.*
+			FROM
+				car_info c
+			WHERE
+				c.status<2
+			AND c.area_id IN(${areaIds})
+			AND EXISTS(
+				SELECT
+					d.id
+				FROM
+					device_info d
+				WHERE
+					d.id = c.device_id
+			)
+        	
+        ]]>   
+    </select>
+    
+</mapper>  

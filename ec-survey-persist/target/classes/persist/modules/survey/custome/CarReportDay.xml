@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarReportDayDao">  
+    
+   <!-- 车辆运行报日报告 -->
+	<select id="findCarReportDayByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+		SELECT
+			crd.*,
+			car.car_no carNo
+		FROM
+		car_report_day AS crd
+		LEFT JOIN car_info AS car ON car.id = crd.car_id
+		WHERE 
+		${whereCond}
+
+        ]]>
+	</select>
+	<!-- 车辆运行日报告 -->
+	<select id="findCarReportDayCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+		SELECT
+			COUNT(*)
+		FROM
+		car_report_day AS crd
+		LEFT JOIN car_info AS car ON car.id = crd.car_id
+		WHERE 
+		${whereCond}
+	
+        ]]>
+	</select>
+	
+	<!-- 查询日行车报告生成月行车报告 -->
+	<select id="findCarReportDayToMonthCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+		SELECT crd.car_id car_id_m, SUM(  crd.`survey_num` ) survey_num_m, SUM(  crd.`traffic_num` ) traffic_num_m, 
+		SUM(  crd.`total_day_mile` ) total_day_mile_m, SUM(  crd.`total_fence_counts` ) total_fence_counts_m, SUM( crd.`total_hypervelocity` ) total_hypervelocity_m,
+		crd.client_day client_day_m
+		FROM  `car_report_day` crd where ${whereCond}
+		GROUP BY crd.car_id
+		ORDER BY crd.car_id
+        ]]>
+	</select>
+	
+	
+</mapper>  

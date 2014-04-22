@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarReportDao">  
+    <!-- 车辆运行报告次报告 -->
+	<select id="findCarReportSecondByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+		SELECT
+			carreport.*,
+			car.car_no carNo,
+			su.name suName
+		FROM
+		car_report AS carreport
+		LEFT JOIN car_info AS car ON car.id = carreport.car_id
+		LEFT JOIN survey_user_info AS su ON  su.id= carreport.survey_uid
+		WHERE 
+		${whereCond}
+
+        ]]>
+	</select>
+	<!-- 车辆运行次报告 -->
+	<select id="findCarReportSecondCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+		SELECT
+			COUNT(*)
+		FROM
+		car_report AS carreport
+		LEFT JOIN car_info AS car ON car.id = carreport.car_id
+		LEFT JOIN survey_user_info AS su ON  su.id= carreport.survey_uid
+		WHERE 
+		${whereCond}
+	
+        ]]>
+	</select>
+	
+	<select id="findCarReportByImei" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[
+			SELECT
+				r.*
+			FROM
+				car_report r
+			WHERE
+				r.car_id =(
+					SELECT
+						c.id
+					FROM
+						car_info c
+					WHERE
+						EXISTS(
+							SELECT
+								d.id
+							FROM
+								device_info d
+							WHERE
+								d.id = c.device_id
+							AND d. CODE = #{imei}
+						)
+				)
+			ORDER BY
+				r.create_time DESC
+			LIMIT 1
+        ]]>
+	</select>
+	
+	<!-- 车辆运行次报告生成日报告 -->
+	<select id="findCarReportToDayByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+		 SELECT carreport.car_id car_id_d, SUM(  carreport.`fence_counts` ) fence_counts_d, SUM(  carreport.`hypervelocity` ) hypervelocity_d, 
+		 SUM(  carreport.`mile_meter` ) mile_meter_d
+		 FROM  `car_report` carreport  WHERE ${whereCond} 
+		 GROUP BY carreport.car_id
+		 ORDER BY carreport.car_id
+	
+        ]]>
+	</select>
+</mapper>  

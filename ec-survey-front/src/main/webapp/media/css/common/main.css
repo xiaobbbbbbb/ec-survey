@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+/*list列表中的表格样式*/
+body {
+	background-color: white;
+}
+
+#frameTable tr td {
+	border: 1px solid #ccc;
+	border-top: 0px;
+	border-left: 0px;
+}
+
+#ztreeTable tr td
+{
+	border: 0px;
+}
+
+#frameCon {
+	overflow: auto;
+	margin: 0 auto;
+}
+
+#th {
+	background: url("../../../media/images/common/table_head_bg.gif")
+		repeat-x scroll 0 0 transparent;
+}
+
+#th th {
+	height: 24px;
+	line-height: 24px;
+}
+
+#listTable a:hover {
+	color: red;
+}
+
+#th .th_line {
+	border-right: 1px solid #ccc;
+}
+
+#listTable tr td {
+	border-bottom: #c0c0c0 1px solid;
+	height: 22px;
+	line-height: 22px;
+	cursor: pointer;
+}
+
+.even {
+	background: #F0F4F8;
+} /* 偶数行样式*/
+.odd {
+	background: #FFFFFF;
+} /* 奇数行样式*/
+.selected {
+	background: #AFD6FD;
+}
+
+#addUpdateTable tr td {
+	border: 0px;
+	height: 30px;
+	line-height: 30px;
+}
+
+#currentPosition {
+	margin-left: 20px;
+}

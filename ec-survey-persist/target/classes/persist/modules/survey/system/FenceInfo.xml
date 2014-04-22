@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.FenceInfoDao">  
+    
+    <resultMap type="FenceInfo" id="FenceInfoResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="name" column="name"/>
+		<result 	property="alarmType" column="alarm_type"/>
+		<result 	property="alarmStartTime" column="alarm_start_time"/>
+		<result 	property="alarmEndTime" column="alarm_end_time"/>
+		<result 	property="points" column="points"/>
+		<result 	property="gpsPoints" column="gps_points"/>
+		<result 	property="description" column="description"/>
+		<result 	property="grade" column="grade"/>
+		<result 	property="centerPoints" column="center_points"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="updateTime" column="update_time"/>
+		<result 	property="orgId" column="org_id"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+		    SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id FROM fence_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM fence_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="FenceInfo">
+    	<![CDATA[ 
+    		INSERT INTO fence_info(name,alarm_type,alarm_start_time,alarm_end_time,points,gps_points,description,grade,center_points,create_time,update_time,org_id) VALUES (#{name},#{alarmType},#{alarmStartTime},#{alarmEndTime},#{points},#{gpsPoints},#{description},#{grade},#{centerPoints},#{createTime},#{updateTime},#{orgId})    		
+        ]]> 
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE fence_info SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="FenceInfo">
+		<![CDATA[ 
+			UPDATE fence_info SET name = #{name},alarm_type = #{alarmType},alarm_start_time = #{alarmStartTime},alarm_end_time = #{alarmEndTime},points = #{points},gps_points = #{gpsPoints},description = #{description},grade = #{grade},center_points = #{centerPoints},create_time = #{createTime},update_time = #{updateTime},org_id = #{orgId} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="FenceInfo">
+		<![CDATA[ 
+    		DELETE FROM fence_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Integer">
+		<![CDATA[ 
+    		DELETE FROM fence_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM fence_info WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

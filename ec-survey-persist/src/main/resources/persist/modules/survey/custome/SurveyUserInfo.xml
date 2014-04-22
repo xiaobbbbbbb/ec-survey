@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.SurveyUserInfoDao">
+
+	<select id="findSurveyUserInfoByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		su.*, tag.serial_no
+	FROM
+		survey_user_info AS su
+	LEFT JOIN tag_info AS tag ON su.id = tag.user_id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+
+	<select id="findSurveyUserInfoCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		survey_user_info AS su
+	LEFT JOIN tag_info AS tag ON su.id = tag.user_id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+
+	<!-- 查勘员出车报告 -->
+	<select id="findSurveyUserInfoReportByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		su.`name`,
+		car.car_no,
+		MAX(carreport.create_time)AS max_time,
+		MIN(carreport.create_time)AS min_time,
+		sum(carreport.mile_meter)AS total_mile_meter,
+		sum(carreport.total_time)AS total_time,
+		sum(carreport.hypervelocity)AS total_hypervelocity,
+		sum(carreport.fence_counts)AS total_fence,
+		COUNT(carreport.id)AS survey_sum
+	FROM
+		car_report AS carreport
+	LEFT JOIN survey_user_info AS su ON carreport.survey_uid = su.id
+	LEFT JOIN car_info AS car ON car.id = carreport.car_id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+
+	<!-- 查勘员出车报告记录数 -->
+	<select id="findSurveyUserInfoReportCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+   SELECT
+	    COUNT(*)
+   FROM
+	(      
+		SELECT
+			COUNT(*)
+		FROM
+			car_report AS carreport
+		LEFT JOIN survey_user_info AS su ON carreport.survey_uid = su.id
+		LEFT JOIN car_info AS car ON car.id = carreport.car_id
+		
+		WHERE 
+		
+		${whereCond}
+	
+	)TEMP
+	
+        ]]>
+	</select>
+
+</mapper>  

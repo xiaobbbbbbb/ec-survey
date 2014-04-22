@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.TagInfoDao">  
+    
+    <select id="findTagInfoByCarId"  resultType="hashmap">  
+        <![CDATA[ 
+        	SELECT
+				t.id AS tag_id,
+				t.serial_no,
+				t.user_id,
+				t.car_id,
+				s.area_id,
+				s. NAME,
+				s.phone_no,
+				a.name
+			FROM
+				tag_info t,
+				survey_user_info s,
+				area_info a
+			WHERE
+				t.user_id = s.id
+			and a.id = s.area_id
+			AND t. ONLINE = 1
+			AND s.disabled = 1
+			AND t.car_id = #{carId}
+        ]]>   
+    </select>
+    
+    <select id="findTagInfoByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+	SELECT
+		tag.*, su.`name` AS survey_user_name,
+		car.car_no AS car_no
+	FROM
+		tag_info AS tag
+	LEFT JOIN survey_user_info AS su ON tag.user_id = su.id
+	LEFT JOIN car_info AS car ON tag.car_id = car.id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+
+	<select id="findTagInfoCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+         
+	SELECT
+		COUNT(*)
+	FROM
+		tag_info AS tag
+	LEFT JOIN survey_user_info AS su ON tag.user_id = su.id
+	LEFT JOIN car_info AS car ON tag.car_id = car.id
+	
+	WHERE 
+	
+	${whereCond}
+	
+        ]]>
+	</select>
+	
+</mapper>  

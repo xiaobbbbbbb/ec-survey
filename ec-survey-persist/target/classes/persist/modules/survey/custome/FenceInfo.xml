@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.FenceInfoDao">  
+	 
+	<select id="findFenceByCarId" resultType="FenceInfo" resultMap="FenceInfoResultMap">  
+        <![CDATA[ 
+        	SELECT
+				f.*
+			FROM
+				fence_info f,
+				fence_car fc
+			WHERE
+				f.id = fc.fence_id
+			AND fc.car_id = #{carId}
+        ]]>
+    </select>
+    
+</mapper>  

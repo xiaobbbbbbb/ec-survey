@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarSurveyUserDao">  
+    
+    <resultMap type="CarSurveyUser" id="CarSurveyUserResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="carId" column="car_id"/>
+		<result 	property="surveyUserId" column="survey_user_id"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_user_id FROM car_survey_user WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_user_id FROM car_survey_user WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_user_id FROM car_survey_user WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_user_id FROM car_survey_user WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+		    SELECT id,car_id,survey_user_id FROM car_survey_user WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_user_id FROM car_survey_user        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarSurveyUser" resultMap="CarSurveyUserResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,car_id,survey_user_id FROM car_survey_user WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM car_survey_user WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="CarSurveyUser">
+    	<![CDATA[ 
+    		INSERT INTO car_survey_user(car_id,survey_user_id) VALUES (#{carId},#{surveyUserId})    		
+        ]]> 
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE car_survey_user SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="CarSurveyUser">
+		<![CDATA[ 
+			UPDATE car_survey_user SET car_id = #{carId},survey_user_id = #{surveyUserId} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="CarSurveyUser">
+		<![CDATA[ 
+    		DELETE FROM car_survey_user WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Integer">
+		<![CDATA[ 
+    		DELETE FROM car_survey_user WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM car_survey_user WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.SystemLogDao">  
+    
+    <resultMap type="SystemLog" id="SystemLogResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="action" column="action"/>
+		<result 	property="type" column="type"/>
+		<result 	property="ip" column="ip"/>
+		<result 	property="userId" column="user_id"/>
+		<result 	property="userName" column="user_name"/>
+		<result 	property="orgId" column="org_id"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+		    SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+        	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="SystemLog" resultMap="SystemLogResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,create_time,action,type,ip,user_id,user_name,org_id FROM system_log WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM system_log WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="SystemLog">
+    	<![CDATA[ 
+    		INSERT INTO system_log(create_time,action,type,ip,user_id,user_name,org_id) VALUES (#{createTime},#{action},#{type},#{ip},#{userId},#{userName},#{orgId})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE system_log SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="SystemLog">
+		<![CDATA[ 
+			UPDATE system_log SET create_time = #{createTime},action = #{action},type = #{type},ip = #{ip},user_id = #{userId},user_name = #{userName},org_id = #{orgId} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="SystemLog">
+		<![CDATA[ 
+    		DELETE FROM system_log WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM system_log WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM system_log WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarReportImageDao">  
+    
+    <resultMap type="CarReportImage" id="CarReportImageResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="url" column="url"/>
+		<result 	property="serialNo" column="serial_no"/>
+		<result 	property="carReportId" column="car_report_id"/>
+		<result 	property="createTime" column="create_time"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+        	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+        	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+        	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+        	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+		    SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+        	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarReportImage" resultMap="CarReportImageResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,url,serial_no,car_report_id,create_time FROM car_report_image WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM car_report_image WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="CarReportImage">
+    	<![CDATA[ 
+    		INSERT INTO car_report_image(url,serial_no,car_report_id,create_time) VALUES (#{url},#{serialNo},#{carReportId},#{createTime})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE car_report_image SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="CarReportImage">
+		<![CDATA[ 
+			UPDATE car_report_image SET url = #{url},serial_no = #{serialNo},car_report_id = #{carReportId},create_time = #{createTime} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="CarReportImage">
+		<![CDATA[ 
+    		DELETE FROM car_report_image WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM car_report_image WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM car_report_image WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.MarkInfoDao">
+	<select id="findMarkInfoByCriteria" resultType="hashmap">  
+        <![CDATA[ 
+        	SELECT
+        		mark.*, mark_type.`name` AS type_name ,mark_type.`img` img
+			FROM
+			mark_info AS mark
+			LEFT JOIN mark_type AS mark_type ON mark.type = mark_type.id 
+			WHERE 
+		  
+			${whereCond}
+				     	
+        ]]>
+	</select>
+	<select id="findMarkInfoCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria"
+		resultType="long">  
+        <![CDATA[
+			SELECT
+				COUNT(*)
+			FROM
+			mark_info AS mark
+			LEFT JOIN mark_type AS mark_type ON mark.type = mark_type.id 
+			WHERE 
+		  
+			${whereCond}
+        ]]>
+	</select>
+</mapper>  

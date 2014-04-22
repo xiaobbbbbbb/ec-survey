@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarReportDao">  
+    
+    <resultMap type="CarReport" id="CarReportResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="carId" column="car_id"/>
+		<result 	property="surveyUid" column="survey_uid"/>
+		<result 	property="mileMeter" column="mile_meter"/>
+		<result 	property="avgSpeed" column="avg_speed"/>
+		<result 	property="totalTime" column="total_time"/>
+		<result 	property="hypervelocity" column="hypervelocity"/>
+		<result 	property="fenceCounts" column="fence_counts"/>
+		<result 	property="firstDataId" column="first_data_id"/>
+		<result 	property="lastDataId" column="last_data_id"/>
+		<result 	property="startAddress" column="start_address"/>
+		<result 	property="endAddress" column="end_address"/>
+		<result 	property="updateTime" column="update_time"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="firstClientTime" column="first_client_time"/>
+		<result 	property="lastClientTime" column="last_client_time"/>
+		<result 	property="status" column="status"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+		    SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+        	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CarReport" resultMap="CarReportResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status FROM car_report WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM car_report WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="CarReport">
+    	<![CDATA[ 
+    		INSERT INTO car_report(car_id,survey_uid,mile_meter,avg_speed,total_time,hypervelocity,fence_counts,first_data_id,last_data_id,start_address,end_address,update_time,create_time,first_client_time,last_client_time,status) VALUES (#{carId},#{surveyUid},#{mileMeter},#{avgSpeed},#{totalTime},#{hypervelocity},#{fenceCounts},#{firstDataId},#{lastDataId},#{startAddress},#{endAddress},#{updateTime},#{createTime},#{firstClientTime},#{lastClientTime},#{status})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE car_report SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="CarReport">
+		<![CDATA[ 
+			UPDATE car_report SET car_id = #{carId},survey_uid = #{surveyUid},mile_meter = #{mileMeter},avg_speed = #{avgSpeed},total_time = #{totalTime},hypervelocity = #{hypervelocity},fence_counts = #{fenceCounts},first_data_id = #{firstDataId},last_data_id = #{lastDataId},start_address = #{startAddress},end_address = #{endAddress},update_time = #{updateTime},create_time = #{createTime},first_client_time = #{firstClientTime},last_client_time = #{lastClientTime},status = #{status} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="CarReport">
+		<![CDATA[ 
+    		DELETE FROM car_report WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM car_report WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM car_report WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

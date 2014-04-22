@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.DeviceDataDao">  
+    
+    <resultMap type="DeviceData" id="DeviceDataResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="deviceId" column="device_id"/>
+		<result 	property="imei" column="imei"/>
+		<result 	property="carReportId" column="car_report_id"/>
+		<result 	property="gpsTime" column="gps_time"/>
+		<result 	property="gpsLongitude" column="gps_longitude"/>
+		<result 	property="gpsLatitude" column="gps_latitude"/>
+		<result 	property="baiduLongitude" column="baidu_longitude"/>
+		<result 	property="baiduLatitude" column="baidu_latitude"/>
+		<result 	property="geohash" column="geohash"/>
+		<result 	property="areaNo" column="area_no"/>
+		<result 	property="gridNo" column="grid_no"/>
+		<result 	property="mileMeter" column="mile_meter"/>
+		<result 	property="speed" column="speed"/>
+		<result 	property="temperature" column="temperature"/>
+		<result 	property="isChargeVoltage" column="is_charge_voltage"/>
+		<result 	property="voltageInner" column="voltage_inner"/>
+		<result 	property="voltageOuter" column="voltage_outer"/>
+		<result 	property="angleValue" column="angle_value"/>
+		<result 	property="angleDirection" column="angle_direction"/>
+		<result 	property="clientTime" column="client_time"/>
+		<result 	property="updateTime" column="update_time"/>
+		<result 	property="status" column="status"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+        	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+        	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+        	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+        	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+		    SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+        	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="DeviceData" resultMap="DeviceDataResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,AsText(geohash) AS geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status FROM device_data WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM device_data WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="DeviceData">
+    	<![CDATA[ 
+    		INSERT INTO device_data(device_id,imei,car_report_id,gps_time,gps_longitude,gps_latitude,baidu_longitude,baidu_latitude,geohash,area_no,grid_no,mile_meter,speed,temperature,is_charge_voltage,voltage_inner,voltage_outer,angle_value,angle_direction,client_time,update_time,status) VALUES (#{deviceId},#{imei},#{carReportId},#{gpsTime},#{gpsLongitude},#{gpsLatitude},#{baiduLongitude},#{baiduLatitude},PointFromText('point(${geohash})'),#{areaNo},#{gridNo},#{mileMeter},#{speed},#{temperature},#{isChargeVoltage},#{voltageInner},#{voltageOuter},#{angleValue},#{angleDirection},#{clientTime},#{updateTime},#{status})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE device_data SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="DeviceData">
+		<![CDATA[ 
+			UPDATE device_data SET device_id = #{deviceId},imei = #{imei},car_report_id = #{carReportId},gps_time = #{gpsTime},gps_longitude = #{gpsLongitude},gps_latitude = #{gpsLatitude},baidu_longitude = #{baiduLongitude},baidu_latitude = #{baiduLatitude},geohash = PointFromText('point(${geohash})'),area_no = #{areaNo},grid_no = #{gridNo},mile_meter = #{mileMeter},speed = #{speed},temperature = #{temperature},is_charge_voltage = #{isChargeVoltage},voltage_inner = #{voltageInner},voltage_outer = #{voltageOuter},angle_value = #{angleValue},angle_direction = #{angleDirection},client_time = #{clientTime},update_time = #{updateTime},status = #{status} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="DeviceData">
+		<![CDATA[ 
+    		DELETE FROM device_data WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM device_data WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM device_data WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

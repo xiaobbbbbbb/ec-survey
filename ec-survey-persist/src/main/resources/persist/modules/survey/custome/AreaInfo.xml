@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.AreaInfoDao">
+	<!-- 按关键字查找模块 -->
+	<select id="findAreaByKeyWord" resultType="AreaInfo" resultMap="AreaInfoResultMap">  
+        <![CDATA[ 
+        	SELECT
+				DISTINCT a.*
+			FROM
+				area_info a,
+				survey_user_info s,
+				car_info c,
+				tag_info t
+			WHERE
+				a.org_id=#{orgId}
+			AND a.id = c.area_id 
+			AND a.disabled = 1
+			AND(
+				a.`name` LIKE #{keyWord}
+				OR c.car_no LIKE #{keyWord}
+				OR s.`name` LIKE #{keyWord}
+				OR s.`phone_no` LIKE #{keyWord}
+			)
+        ]]>
+	</select>
+ 
+	<select id="findAreaByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+		SELECT area. * , areap.`name` parentName
+		FROM area_info AS area
+		LEFT JOIN area_info areap ON area.pid = areap.id
+		WHERE 
+		${whereCond}
+
+        ]]>
+	</select>
+	 
+	<select id="findAreaCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+		SELECT
+			COUNT(*)
+		FROM area_info AS area
+		LEFT JOIN area_info areap ON area.pid = areap.id
+		WHERE 
+		${whereCond}
+        ]]>
+	</select>
+</mapper>  

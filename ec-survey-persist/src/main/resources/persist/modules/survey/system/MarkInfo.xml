@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.MarkInfoDao">  
+    
+    <resultMap type="MarkInfo" id="MarkInfoResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="name" column="name"/>
+		<result 	property="type" column="type"/>
+		<result 	property="address" column="address"/>
+		<result 	property="baiduLongitude" column="baidu_longitude"/>
+		<result 	property="baiduLatitude" column="baidu_latitude"/>
+		<result 	property="status" column="status"/>
+		<result 	property="orgId" column="org_id"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="updateTime" column="update_time"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+		    SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="MarkInfo" resultMap="MarkInfoResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time FROM mark_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM mark_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="MarkInfo">
+    	<![CDATA[ 
+    		INSERT INTO mark_info(name,type,address,baidu_longitude,baidu_latitude,status,org_id,create_time,update_time) VALUES (#{name},#{type},#{address},#{baiduLongitude},#{baiduLatitude},#{status},#{orgId},#{createTime},#{updateTime})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE mark_info SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="MarkInfo">
+		<![CDATA[ 
+			UPDATE mark_info SET name = #{name},type = #{type},address = #{address},baidu_longitude = #{baiduLongitude},baidu_latitude = #{baiduLatitude},status = #{status},org_id = #{orgId},create_time = #{createTime},update_time = #{updateTime} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="MarkInfo">
+		<![CDATA[ 
+    		DELETE FROM mark_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM mark_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM mark_info WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.FenceCarDao">
+	<select id="findFenCarInfo" resultType="hashmap">  
+        <![CDATA[ 
+        	SELECT fc.fence_id fenceId, fc.id fid, fc.car_id fenCarId, fc.create_time fceateTime, c.id carId, c.car_no carNo
+			FROM fence_car fc, car_info c
+			WHERE fc.car_id = c.id
+			AND fc.fence_id= #{fenceId}         	
+        ]]>
+	</select>
+
+</mapper>  

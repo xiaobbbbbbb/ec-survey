@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!--shiro过滤器配置，bean的id值须与web中的filter-name的值相同 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/ralasafe/login/loginIndex" />
+		<property name="successUrl" value="/ralasafe/ecarinfo/" />
+		<property name="unauthorizedUrl" value="/ralasafe/login/unauthorized" />
+
+		<property name="filterChainDefinitions">
+			<value>
+				/ralasafe/login/** = anon
+				/common/** = anon  <!--解决FireFox下文件上传的问题 -->
+				/druid/** = anon  <!--监控 -->
+				/webjars/** = anon
+				/media/** = anon
+				/js/** = anon
+				/upload/** = anon  <!--上传文件目录 -->
+				/** = authc
+			</value>
+		</property>
+	</bean>
+
+	<!--SecurityManager是Shiro的核心，初始化时协调各个模块运行 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!--单个realm使用realm,如果有多个realm，使用realms属性代替 -->
+		<property name="realm" ref="myRealm" /> 
+		<property name="cacheManager" ref="shiroCacheManager" />
+		<property name="sessionMode" value="native" />
+	</bean>
+
+	<!-- ehCacheManager采用的是Spring的EhCache -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- Realm配置，Realm是Shiro的桥梁，它主要是用来判断subject是否可以登录及权限等 -->
+	<bean id="myRealm" class="com.ecarinfo.ralasafe.shiro.GradRealm" />
+</beans> 

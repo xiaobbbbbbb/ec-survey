@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+/*分页的样式*/
+#page {
+	height: 30px;
+	line-height: 30px;
+	border-top: 0px;
+	background: url("../../../style/images/btn/pagebg.png") repeat-x scroll
+		0 0 transparent;
+}
+
+#wp {
+	float: right;
+	padding-right: 10px;
+	height: 30px;
+}
+
+#pageInfo {
+	float: left;
+	padding-left: 10px;
+	height: 30px;
+}
+
+.currentPage {
+	color: red;
+	font-weight: 800;
+}
+
+#wp a {
+	padding: 2px 3px;
+	border: 1px solid #edf3f6;
+}
+
+#page a:hover {
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 -1px 0
+		rgba(0, 0, 0, 0.09);
+	color: #333333;
+	letter-spacing: 2px;
+	line-height: 1;
+	text-shadow: 0 1px 1px #FFFFFF;
+	transition: box-shadow 0.2s linear 0s;
+	text-decoration: none;
+	background-color: white;
+}
+
+.firstPage_disabled {
+	padding-left: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 2px -205px;
+	color: #666666;
+}
+
+.firstPage span {
+	padding-left: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 2px -5px;
+}
+
+.previousPage span {
+	padding-left: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 2px -55px;
+}
+
+.previousPage_disabled {
+	padding-left: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 2px -255px;
+	color: #666666;
+}
+
+.nextPage span {
+	padding-right: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 42px -88px;
+}
+
+.nextPage_disabled {
+	padding-right: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 42px -295px;
+	color: #666666;
+}
+
+.lastPage span {
+	padding-right: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 28px -138px;
+}
+
+.lastPage_disabled {
+	padding-right: 10px;
+	background-image: url("../../../style/images/btn/page.png");
+	background-repeat: no-repeat;
+	background-position: 28px -345px;
+	color: #666666;
+}

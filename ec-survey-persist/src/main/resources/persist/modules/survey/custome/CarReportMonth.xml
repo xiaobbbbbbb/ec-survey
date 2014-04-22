@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CarReportMonthDao">  
+    
+    <!-- 车辆运行报告月报告 -->
+	<select id="findCarReportMonthByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="hashmap">  
+        <![CDATA[
+         
+		SELECT
+			crm.*,
+			car.car_no carNo
+		FROM
+		car_report_month AS crm
+		LEFT JOIN car_info AS car ON car.id = crm.car_id
+		 
+		WHERE 
+		${whereCond}
+
+        ]]>
+	</select>
+	<!-- 车辆运行月报告 -->
+	<select id="findCarReportMonthCountByCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[
+		SELECT
+			COUNT(*)
+		FROM
+		car_report_month AS crm
+		LEFT JOIN car_info AS car ON car.id = crm.car_id
+		WHERE 
+		${whereCond}
+	
+        ]]>
+	</select>
+</mapper>  

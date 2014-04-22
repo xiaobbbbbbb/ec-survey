@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.CityInfoDao">  
+    
+    <resultMap type="CityInfo" id="CityInfoResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="name" column="name"/>
+		<result 	property="longitude" column="longitude"/>
+		<result 	property="latitude" column="latitude"/>
+		<result 	property="grade" column="grade"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="updateTime" column="update_time"/>
+		<result 	property="pinyin" column="pinyin"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+		    SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="CityInfo" resultMap="CityInfoResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,name,longitude,latitude,grade,create_time,update_time,pinyin FROM city_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM city_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="CityInfo">
+    	<![CDATA[ 
+    		INSERT INTO city_info(name,longitude,latitude,grade,create_time,update_time,pinyin) VALUES (#{name},#{longitude},#{latitude},#{grade},#{createTime},#{updateTime},#{pinyin})    		
+        ]]> 
+        <selectKey resultType="Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE city_info SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="CityInfo">
+		<![CDATA[ 
+			UPDATE city_info SET name = #{name},longitude = #{longitude},latitude = #{latitude},grade = #{grade},create_time = #{createTime},update_time = #{updateTime},pinyin = #{pinyin} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="CityInfo">
+		<![CDATA[ 
+    		DELETE FROM city_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Integer">
+		<![CDATA[ 
+    		DELETE FROM city_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM city_info WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

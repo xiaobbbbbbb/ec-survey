@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.ecarinfo.survey.dao.FenceAlarmInfoDao">  
+    
+    <resultMap type="FenceAlarmInfo" id="FenceAlarmInfoResultMap">  
+		<id 		property="id" column="id"/>
+		<result 	property="type" column="type"/>
+		<result 	property="carId" column="car_id"/>
+		<result 	property="carReportId" column="car_report_id"/>
+		<result 	property="deviceId" column="device_id"/>
+		<result 	property="baiduLatitude" column="baidu_latitude"/>
+		<result 	property="baiduLongitude" column="baidu_longitude"/>
+		<result 	property="address" column="address"/>
+		<result 	property="surveyTel" column="survey_tel"/>
+		<result 	property="surveyName" column="survey_name"/>
+		<result 	property="updateTime" column="update_time"/>
+		<result 	property="createTime" column="create_time"/>
+		<result 	property="orgId" column="org_id"/>
+		<result 	property="fenceId" column="fence_id"/>
+		 
+    </resultMap>
+    
+    <select id="findByPK"  resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE id = #{id}        	
+        ]]>   
+    </select>
+    
+    <select id="findOneByAttr" resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE `${fieldName}` = #{value} limit 1        	
+        ]]>
+    </select>
+    
+    <select id="findByAttr" resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE `${fieldName}` = #{value}        	
+        ]]>
+    </select>
+    
+    <select id="findOne" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE ${uniqueWhereCond}        	
+        ]]>
+    </select>
+    
+    <select id="findMap" parameterType="com.ecarinfo.persist.criteria.Criteria" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+		    SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE ${whereCond}
+        ]]>
+    </select>
+    
+    <select id="findAll" resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+        	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info        	
+        ]]>
+    </select>
+    
+    <select id="findList" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="FenceAlarmInfo" resultMap="FenceAlarmInfoResultMap">  
+        <![CDATA[ 
+      	 	SELECT id,type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id FROM fence_alarm_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <select id="count" parameterType="com.ecarinfo.persist.criteria.Criteria" resultType="long">  
+        <![CDATA[ 
+      	 	SELECT COUNT(id) FROM fence_alarm_info WHERE ${whereCond}      	 	
+        ]]>
+    </select>
+    
+    <insert id="insert" parameterType="FenceAlarmInfo">
+    	<![CDATA[ 
+    		INSERT INTO fence_alarm_info(type,car_id,car_report_id,device_id,baidu_latitude,baidu_longitude,address,survey_tel,survey_name,update_time,create_time,org_id,fence_id) VALUES (#{type},#{carId},#{carReportId},#{deviceId},#{baiduLatitude},#{baiduLongitude},#{address},#{surveyTel},#{surveyName},#{updateTime},#{createTime},#{orgId},#{fenceId})    		
+        ]]> 
+        <selectKey resultType="Long" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID() AS ID    
+		</selectKey>
+    </insert>
+	
+	<update id="updateWithCriteria" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+		UPDATE fence_alarm_info SET ${updateField} WHERE ${whereCond}	
+		]]> 	
+	</update>
+	
+	<update id="update" parameterType="FenceAlarmInfo">
+		<![CDATA[ 
+			UPDATE fence_alarm_info SET type = #{type},car_id = #{carId},car_report_id = #{carReportId},device_id = #{deviceId},baidu_latitude = #{baiduLatitude},baidu_longitude = #{baiduLongitude},address = #{address},survey_tel = #{surveyTel},survey_name = #{surveyName},update_time = #{updateTime},create_time = #{createTime},org_id = #{orgId},fence_id = #{fenceId} WHERE id = #{id}
+		]]> 	
+	</update>
+	
+	<delete id="deleteEntity" parameterType="FenceAlarmInfo">
+		<![CDATA[ 
+    		DELETE FROM fence_alarm_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="deleteByPK" parameterType="Long">
+		<![CDATA[ 
+    		DELETE FROM fence_alarm_info WHERE id = #{id}    		
+        ]]> 
+	</delete>
+	
+	<delete id="delete" parameterType="com.ecarinfo.persist.criteria.Criteria">
+		<![CDATA[ 
+    		DELETE FROM fence_alarm_info WHERE ${whereCond}     		
+        ]]> 
+	</delete>
+	
+</mapper>  

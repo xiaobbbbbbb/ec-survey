@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+/*搜索的样式*/
+#search {
+	float: right;
+}
+
+#search select, .searchPage select {
+	width: 120px;
+	padding: 2px;
+	height: 24px;
+	border-width: 1px;
+	border-style: solid;
+	margin-right: 1px;
+	border-color: #707070 #CECECE #CECECE #707070;
+}
+
+#search .formText {
+	border-style: solid;
+	border-color: #707070 #CECECE #CECECE #707070;
+	height: 18px;
+	line-height: 18px;
+	padding: 2px 4px;
+}
+
+.td_right {
+	font-weight: 800;
+}
+
+#startTime, #endTime, #startCheckTime, #endCheckTime
+{
+	cursor: pointer;
+}
